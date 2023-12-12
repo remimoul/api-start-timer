@@ -2,9 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 let timerSchema = new Schema({
-  time: {
-    //mettre en datetime plus tard
-    type: Number,
+  time: { 
+    type: Date,
     required: true,
   },
   created_at: {
@@ -12,7 +11,8 @@ let timerSchema = new Schema({
     default: Date.now,
   },
   user_id: {
-    type: String,
+    type :Schema.Types.ObjectId,
+    ref: "User",
   },
 });
 
