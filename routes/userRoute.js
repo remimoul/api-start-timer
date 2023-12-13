@@ -2,15 +2,22 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controller/userController");
 
+const jwtMiddleware = require("../middleware/jwtMiddleware");
 
 router
-  .route("/")
+  .route("/login").post(userController.userLogin);
 
-  .get(userController.listAllUsers)
-  .put(userController.updateUser)
-  .delete(userController.deleteUser)
-
-
+  
+router
+  .route("/register")
   .post(userController.createAUser);
+
+router
+  .route("/:user_id")
+  .all(jwtMiddleware.verifyToken)
+  .put(userController.updateUser)
+  .delete(userController.deleteUser);
+
+
 
 module.exports = router;
